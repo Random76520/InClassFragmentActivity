@@ -5,9 +5,15 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class CustomRecyclerAdapter(private val items: IntArray) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
+class CustomRecyclerAdapter(private val items: IntArray, val callback: (Int) -> Unit) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
-    class MyViewHolder(val imageView: ImageView) : ViewHolder(imageView)
+    inner class MyViewHolder(val imageView: ImageView) : ViewHolder(imageView) {
+        init {
+            imageView.setOnClickListener {
+                callback(items[adapterPosition])
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         // Create a runtime ImageView
